@@ -19,7 +19,7 @@ import com.example.model.User;
 @Configuration
 public class ConsumerConfigurations {
 	
-	@Bean
+    @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
@@ -39,19 +39,19 @@ public class ConsumerConfigurations {
         return factory;
     }
 
-	@Bean
-	public ConsumerFactory<String, User> userConsumerFactory() {
-		Map<String, Object> config = new HashMap<>();
+    @Bean
+    public ConsumerFactory<String, User> userConsumerFactory() {
+	    Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
-                new JsonDeserializer<>(User.class));
-	}
+	    new JsonDeserializer<>(User.class));
+    }
 
-	@Bean
+    @Bean
     public ConcurrentKafkaListenerContainerFactory<String, User> userKafkaListenerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, User> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userConsumerFactory());
